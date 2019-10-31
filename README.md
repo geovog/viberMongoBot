@@ -11,6 +11,7 @@ simple viber bot built with viber python api + mongo-flask-gunicorn-nginx
 sudo apt-get update
 sudo apt-get install -y mongodb-org
 sudo service mongod start
+sudo systemctl enable mongod.service
 
 ```
 

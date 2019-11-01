@@ -1,6 +1,8 @@
 # viberMongoBot
 simple viber bot built with viber python api + mongo-flask-gunicorn-nginx
 
+![image](https://user-images.githubusercontent.com/14131080/68029178-5d8d3880-fcbf-11e9-988d-8ce78e7960e3.png)
+
 (assuming Ubuntu 18.04 Env)
 
 - install mongoDb: 

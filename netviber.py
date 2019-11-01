@@ -1,5 +1,6 @@
 import pymongo
 import requests
+from flask import render_template
 from datetime import datetime
 from pymongo import MongoClient
 from flask import Flask, request, Response
@@ -35,7 +36,11 @@ client = MongoClient('mongodb://localhost:27017')
 db = client['netlinkBot']
 
 
-@app.route('/', methods=['POST'])
+@app.route('/',methods=['GET', 'POST', 'PUT'])
+def landing():
+   return render_template('landing.html')
+
+@app.route('/incoming', methods=['POST'])
 def incoming():
     logger.debug("received request. post data: {0}".format(request.get_data()))
     # every viber message is signed, you can verify the signature using this method
@@ -67,7 +72,7 @@ def incoming():
             TextMessage(text="Welcome "+str(" " if viber_request.user.name is None else viber_request.user.name)+"!")
         ])
         url = "https://chatapi.viber.com/pa/send_message"
-        payload = "{\r\n   \"receiver\":\""+viber_request.user.id+"\",\r\n   \"type\":\"rich_media\",\r\n   \"min_api_version\":2,\r\n   \"rich_media\":{\r\n      \"Type\":\"rich_media\",\r\n      \"ButtonsGroupColumns\":6,\r\n      \"ButtonsGroupRows\":7,\r\n      \"BgColor\":\"#FFFFFF\",\r\n      \"Buttons\":[\r\n         {\r\n            \"Columns\":6,\r\n            \"Rows\":3,\r\n            \"ActionType\":\"open-url\",\r\n            \"ActionBody\":\"https://www.netlink.gr\",\r\n            \"Image\":\"https://www.netlink.gr/wp-content/uploads/2017/09/netlink-logo.png\"\r\n         },\r\n         {\r\n            \"Columns\":6,\r\n            \"Rows\":2,\r\n            \"Text\":\"<font color=#323232><b>Επικοινωνήστε μαζί μας</b></font>\",\r\n            \"ActionType\":\"open-url\",\r\n            \"ActionBody\":\"https://www.netlink.gr/contact/\",\r\n            \"TextSize\":\"medium\",\r\n            \"TextVAlign\":\"middle\",\r\n            \"TextHAlign\":\"left\"\r\n         },\r\n         {\r\n            \"Columns\":6,\r\n            \"Rows\":1,\r\n            \"ActionType\":\"reply\",\r\n            \"ActionBody\":\"https://www.netlink.gr/contact/\",\r\n            \"Text\":\"<font color=#ffffff>Contact</font>\",\r\n            \"TextSize\":\"large\",\r\n            \"TextVAlign\":\"middle\",\r\n            \"TextHAlign\":\"middle\",\r\n            \"Image\":\"https://img.pngio.com/png-blue-toggle-button-png-toggle-button-button-material-vector-toggle-button-png-button-png-260_260.png\"\r\n         },\r\n         {\r\n            \"Columns\":6,\r\n            \"Rows\":1,\r\n            \"ActionType\":\"reply\",\r\n            \"ActionBody\":\"https://www.netlink.gr/about-us/\",\r\n            \"Text\":\"<font color=#8367db>MORE DETAILS</font>\",\r\n            \"TextSize\":\"small\",\r\n            \"TextVAlign\":\"middle\",\r\n            \"TextHAlign\":\"middle\"\r\n         }\r\n      ]\r\n   }\r\n}"
+        payload = "{\r\n   \"receiver\":\""+viber_request.user.id+"\",\r\n   \"type\":\"rich_media\",\r\n   \"min_api_version\":2,\r\n   \"rich_media\":{\r\n      \"Type\":\"rich_media\",\r\n      \"ButtonsGroupColumns\":6,\r\n      \"ButtonsGroupRows\":7,\r\n      \"BgColor\":\"#FFFFFF\",\r\n      \"Buttons\":[\r\n        {\r\n            \"Columns\":6,\r\n            \"Rows\":3,\r\n            \"ActionType\":\"open-url\",\r\n            \"ActionBody\":\"https://www.netlink.gr\",\r\n            \"Image\":\"https://www.netlink.gr/wp-content/uploads/2017/09/netlink-logo.png\"\r\n        },\r\n        {\r\n            \"Columns\":6,\r\n            \"Rows\":1,\r\n            \"ActionType\":\"reply\",\r\n            \"ActionBody\":\"https://www.netlink.gr/yphresies/netlink-airtime/\",\r\n            \"Text\":\"<font color=#ffffff>Netlink Airtime</font>\",\r\n            \"TextSize\":\"large\",\r\n            \"TextVAlign\":\"middle\",\r\n            \"TextHAlign\":\"middle\",\r\n            \"Image\":\"https://img.pngio.com/png-blue-toggle-button-png-toggle-button-button-material-vector-toggle-button-png-button-png-260_260.png\"\r\n        },\r\n        {\r\n            \"Columns\":6,\r\n            \"Rows\":1,\r\n            \"ActionType\":\"reply\",\r\n            \"ActionBody\":\"https://www.netlink.gr/yphresies/netlink-bill/\",\r\n            \"Text\":\"<font color=#ffffff>Netlink Bill</font>\",\r\n            \"TextSize\":\"large\",\r\n            \"TextVAlign\":\"middle\",\r\n            \"TextHAlign\":\"middle\",\r\n            \"Image\":\"https://img.pngio.com/png-blue-toggle-button-png-toggle-button-button-material-vector-toggle-button-png-button-png-260_260.png\"\r\n        },\r\n        {\r\n            \"Columns\":6,\r\n            \"Rows\":1,\r\n            \"ActionType\":\"reply\",\r\n            \"ActionBody\":\"https://www.netlink.gr/yphresies/netlink-retail/\",\r\n            \"Text\":\"<font color=#ffffff>Netlink Retail</font>\",\r\n            \"TextSize\":\"large\",\r\n            \"TextVAlign\":\"middle\",\r\n            \"TextHAlign\":\"middle\",\r\n            \"Image\":\"https://img.pngio.com/png-blue-toggle-button-png-toggle-button-button-material-vector-toggle-button-png-button-png-260_260.png\"\r\n        },\r\n        {\r\n            \"Columns\":6,\r\n            \"Rows\":1,\r\n            \"ActionType\":\"reply\",\r\n            \"ActionBody\":\"https://www.netlink.gr/yphresies/netlink-register/\",\r\n            \"Text\":\"<font color=#ffffff>Netlink Register</font>\",\r\n            \"TextSize\":\"large\",\r\n            \"TextVAlign\":\"middle\",\r\n            \"TextHAlign\":\"middle\",\r\n            \"Image\":\"https://img.pngio.com/png-blue-toggle-button-png-toggle-button-button-material-vector-toggle-button-png-button-png-260_260.png\"\r\n        },\r\n        {\r\n            \"Columns\":6,\r\n            \"Rows\":2,\r\n            \"Text\":\"<font color=#323232><b>Επικοινωνήστε μαζί μας</b></font>\",\r\n            \"ActionType\":\"open-url\",\r\n            \"ActionBody\":\"https://www.netlink.gr/contact/\",\r\n            \"TextSize\":\"medium\",\r\n            \"TextVAlign\":\"middle\",\r\n            \"TextHAlign\":\"left\"\r\n         },\r\n         {\r\n            \"Columns\":6,\r\n            \"Rows\":1,\r\n            \"ActionType\":\"reply\",\r\n            \"ActionBody\":\"https://www.netlink.gr/about-us/\",\r\n            \"Text\":\"<font color=#8367db>MORE DETAILS</font>\",\r\n            \"TextSize\":\"small\",\r\n            \"TextVAlign\":\"middle\",\r\n            \"TextHAlign\":\"middle\"\r\n         }\r\n      ]\r\n   }\r\n}"
         headers = {
             'X-Viber-Auth-Token': "YourAuthToken",
             'Content-Type': "application/json",
@@ -85,7 +90,7 @@ def incoming():
     elif isinstance(viber_request, ViberMessageRequest):
         message = viber_request.message
         # lets echo back
-        if viber_request.message.text == "https://www.netlink.gr/contact/" or viber_request.message.text == "https://www.netlink.gr/about-us/":
+        if viber_request.message.text == "https://www.netlink.gr/contact/" or viber_request.message.text == "https://www.netlink.gr/about-us/" or viber_request.message.text == "https://www.netlink.gr/yphresies/netlink-airtime/" or viber_request.message.text == "https://www.netlink.gr/yphresies/netlink-bill/" or viber_request.message.text == "https://www.netlink.gr/yphresies/netlink-retail/" or viber_request.message.text == "https://www.netlink.gr/yphresies/netlink-register/":
             viber.send_messages(viber_request.sender.id, [
                 message
             ])

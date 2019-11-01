@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <style>
+	#container { display:block; }
+
+	@media only screen and (orientation:portrait){
+
+	#container {
+
+    height: 100vw;
+   	
+	-webkit-background-size: cover;
+    
+	-moz-background-size: cover;
+  
+    -o-background-size:  cover;
+  
+    background-size:  cover;
+
+		}
+
+	}
+
+	@media only screen and (orientation:landscape){
+
+	#container {
+
+     -webkit-transform: rotate(0deg);
+
+     -moz-transform: rotate(0deg);
+
+     -o-transform: rotate(0deg);
+
+     -ms-transform: rotate(0deg);
+
+     transform: rotate(0deg);
+
+		}
+
+	}
+	body {
+			background-image: url("https://newevolutiondesigns.com/images/freebies/robot-wallpaper-17.jpg");
+			height: 100%;
+			background-position: botttom center;
+            background-repeat: no-repeat;
+            background-size: cover;
+    }
+	</style>			
+	   
+  </head>
+  <body id="container">
+    <!--Our view content here-->
+    <div class='container-fluid mt-4'>
+      {% block body %}{% endblock %}
+   </div>
+   
+  </body>
+   <p style="color:#fae6f4;text-align:center"><a href="viber://pa/info?uri=testnetlinkbot">Visit our Viber bot page</a></p>		 
+
+</html>
+
+
+
+
